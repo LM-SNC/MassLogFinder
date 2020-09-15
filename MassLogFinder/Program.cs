@@ -46,7 +46,7 @@ namespace MassLogFinder
                     if (Regex.IsMatch(choose, @"^[0-9]+$"))
                     {
                         int conChoose = Convert.ToInt32(choose);
-                        if (conChoose >= myList.Count)
+                        if (conChoose > myList.Count)
                         {
                             Console.WriteLine("You have exceeded the file limit" + "\n");
                             continue;
