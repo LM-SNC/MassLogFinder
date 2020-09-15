@@ -1,0 +1,6 @@
+P:\c#Project\MassLogFinder\MassLogFinder\bin\Debug\MassLogFinder.exe.config
+P:\c#Project\MassLogFinder\MassLogFinder\bin\Debug\MassLogFinder.exe
+P:\c#Project\MassLogFinder\MassLogFinder\bin\Debug\MassLogFinder.pdb
+P:\c#Project\MassLogFinder\MassLogFinder\obj\Debug\MassLogFinder.csprojAssemblyReference.cache
+P:\c#Project\MassLogFinder\MassLogFinder\obj\Debug\MassLogFinder.exe
+P:\c#Project\MassLogFinder\MassLogFinder\obj\Debug\MassLogFinder.pdb
