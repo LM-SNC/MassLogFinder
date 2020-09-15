@@ -1,6 +1,7 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -25,7 +26,7 @@ namespace MassLogFinder
                     //получаем расширение файла и проверяем подходит ли оно нам 
                     //File.Move(file.FullName, Path.ChangeExtension(file.FullName, ".txt"));
 
-                    if (Path.GetExtension(file.FullName) == ".log" && Path.GetExtension(file.FullName) == ".txt")
+                    if (Path.GetExtension(file.FullName) == ".log" || Path.GetExtension(file.FullName) == ".txt")
                     {
                         myList.Add(new Bitmap(file.FullName)); //если расширение подошло, создаём Bitmap
                         fileNameList.Add((file.Name));
