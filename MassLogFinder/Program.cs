@@ -44,7 +44,14 @@ namespace MassLogFinder
                     String choose = Console.ReadLine();
                     if (Regex.IsMatch(choose, @"^[0-9]+$"))
                     {
-                        if (Convert.ToInt32(choose).Equals(count))
+                        int conChoose = Convert.ToInt32(choose);
+                        if (conChoose >= myList.Count)
+                        {
+                            Console.WriteLine("You have exceeded the file limit" + "\n");
+                            continue;
+                        }
+
+                        if (conChoose.Equals(count))
                         {
                             Console.WriteLine("You choose: all files" + "\n");
 
@@ -82,14 +89,14 @@ namespace MassLogFinder
                         }
                         else
                         {
-                            Console.WriteLine("You choose: " + fileNameList[Convert.ToInt32(choose)] + "\n");
+                            Console.WriteLine("You choose: " + fileNameList[conChoose] + "\n");
 
                             string desiredString;
                             Console.WriteLine("Send your desired string:" + "\n");
                             desiredString = Console.ReadLine();
 
-                            Console.WriteLine("\n" + "\n" + "[" + fileNameList[Convert.ToInt32(choose)] + "]" + "\n");
-                            StreamReader f = new StreamReader(fileNameList[Convert.ToInt32(choose)]);
+                            Console.WriteLine("\n" + "\n" + "[" + fileNameList[conChoose] + "]" + "\n");
+                            StreamReader f = new StreamReader(fileNameList[conChoose]);
                             int line = 0;
                             bool foundBool = false;
 
