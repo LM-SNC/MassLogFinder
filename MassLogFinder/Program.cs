@@ -46,11 +46,11 @@
             desiredString = Console.ReadLine();
 
 
+            bool foundBool = false;
             for (int i = 0; i < fileNameList.Count; i++)
             {
                 StreamReader f = new StreamReader(path + "/" + fileNameList[i]);
                 int line = 0;
-                bool foundBool = false;
 
                 while (!f.EndOfStream)
                 {
@@ -66,13 +66,12 @@
                     }
                 }
 
-                if (!foundBool)
-                {
-                    Console.WriteLine("Matches not found!");
-                }
-
                 f.Close();
             }
+             if (!foundBool)
+             {
+                Console.WriteLine("Matches not found!");
+             }
         }
 
         /// <summary>
@@ -141,11 +140,12 @@
                 }
                 mainDirectory++;
             }
+
+            bool foundBool = false;
             foreach (var file in fileNameList)
             {
                 StreamReader f = new StreamReader(file);
                 int line = 0;
-                bool foundBool = false;
 
                 while (!f.EndOfStream)
                 {
@@ -160,13 +160,12 @@
                         foundBool = true;
                     }
                 }
-
-                if (!foundBool)
-                {
-                    Console.WriteLine("Matches not found!");
-                }
-
                 f.Close();
+            }
+
+            if (!foundBool)
+            {
+                Console.WriteLine("Matches not found!");
             }
         }
 
@@ -181,93 +180,59 @@
 
 
             Program program = new Program();
-            List<String> diskList = new List<String>();
 
             while (true)
             {
-                Console.WriteLine("Select your search area:" + "\n" + "1. Program directory" + "\n" + "2. All files" + "\n" + "3. Custom path" + "\n");
+                String customPath = null;
 
+                while (true)
+                {
+                    Console.WriteLine("Send your path: ");
+                    customPath = Console.ReadLine();
+                    
+
+                    try
+                    {
+                        DirectoryInfo dir = new DirectoryInfo(customPath);
+
+                        if (!dir.Exists)
+                        {
+                            Console.WriteLine("Invalid path!" + "\n");
+                            Console.ReadLine();
+                            Console.Clear();
+                            continue;
+                        }
+                    }
+                    catch (ArgumentException)
+                    {
+                        Console.WriteLine("Invalid path!" + "\n");
+                        continue;
+                    }
+                    break;
+                }
+
+                Console.WriteLine("\n" + "\n" + "Select your search area:" + "\n" + "1. Path directory" + "\n" + "2. Path directory and subdirectories" + "\n" );
                 String choose = Console.ReadLine();
+
                 if (Regex.IsMatch(choose, @"^[0-9]+$"))
                 {
                     int conChoose = Convert.ToInt32(choose);
 
                     if (conChoose == 1)
                     {
-                        program.getFiles("Program directory", Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location));
-
+                        program.getFiles("Path directory", customPath);
 
                     }
                     else if (conChoose == 2)
                     {
-                        while (true)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("You choose: All Files" + "\n" + "\n");
-                            Console.WriteLine("Select your disk:");
-                            string[] Drives = Environment.GetLogicalDrives();
-                            int count = 0;
-                            foreach (string s in Drives)
-                            {
-                                count++;
-                                Console.WriteLine(count + ". " + s);
-                                diskList.Add(s);
-                            }
-                            Console.WriteLine("\n");
-
-                            choose = Console.ReadLine();
-                            if (Regex.IsMatch(choose, @"^[0-9]+$"))
-                            {
-                                conChoose = Convert.ToInt32(choose);
-                                if (conChoose < 1 || conChoose > count)
-                                {
-                                    Console.WriteLine("The argument must be at least 1 and at most " + count + "\n");
-                                    Console.ReadLine();
-                                    Console.Clear();
-                                    continue;
-                                }
-                                program.getallFiles(diskList[conChoose - 1]);
-                            }
-                            else
-                            {
-                                Console.WriteLine("Only numbers must be used as an argument!");
-                                Console.ReadLine();
-                                Console.Clear();
-                                continue;
-                            }
-                        }
-                    }
-                    else if (conChoose == 3)
-                    {
-                        string customPath;
-                        while (true)
-                        {
-                            Console.WriteLine("Send your path: ");
-                            customPath = Console.ReadLine();
-
-                            try
-                            {
-                                DirectoryInfo dir = new DirectoryInfo(customPath);
-
-                                if (!dir.Exists)
-                                {
-                                    Console.WriteLine("Invalid path!" + "\n");
-                                    continue;
-                                }
-                            }
-                            catch (ArgumentException)
-                            {
-                                Console.WriteLine("Invalid path!" + "\n");
-                                continue;
-                            }
-                            break;
-                        }
-                        program.getFiles("Custom path", customPath);
+                        program.getallFiles(customPath);
                     }
                 }
                 else
                 {
                     Console.WriteLine("Only numbers must be used as an argument!");
+                    Console.ReadLine();
+                    Console.Clear();
                     continue;
                 }
 
